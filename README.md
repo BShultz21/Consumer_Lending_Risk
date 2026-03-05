@@ -1,0 +1,1 @@
+Pipeline that ingests macroeconomic indicators related to consumer lending risk.
