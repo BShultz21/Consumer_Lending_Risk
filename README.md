@@ -8,7 +8,7 @@ The pipeline collects economic indicators such as unemployment, inflation, mortg
 
 ## **Architecture Diagram**
 
-![data_diagram.jpg](diagrams\data_diagram.jpg)
+![data_diagram.jpg](diagrams/data_diagram.jpg)
 
 ## **Data Sources**
 
@@ -22,4 +22,4 @@ Economic indicators used:
 
 ## **Data Model**
 
-![data_model.jpg](diagrams\data_model.jpg)
+![data_model.jpg](diagrams/data_model.jpg)
