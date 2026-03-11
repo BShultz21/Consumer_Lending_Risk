@@ -8,7 +8,7 @@ The pipeline collects economic indicators such as unemployment, inflation, mortg
 
 ## **Architecture Diagram**
 
-![consumer_lending_risk data diagram.jpg](diagrams\consumer_lending_risk data diagram.jpg)
+![data_diagram.jpg](diagrams\data_diagram.jpg)
 
 ## **Data Sources**
 
@@ -22,4 +22,4 @@ Economic indicators used:
 
 ## **Data Model**
 
-![consumer_lending_risk data model.jpg](diagrams\consumer_lending_risk data model.jpg)
+![data_model.jpg](diagrams\data_model.jpg)
