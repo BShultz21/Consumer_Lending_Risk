@@ -50,7 +50,7 @@ class CallFredAPI:
         This takes the data from the response from the FRED api call and parses the JSON to get the relevant information
         """
         parsed_data = {}
-        if self.series in ['DRCCLACBS', 'CPIAUCSL', 'UNRATE', 'MORTGAGE30US', 'TOTALSL']:
+        if self.series in ['DRCCLACBS', 'CPIAUCSL', 'UNRATE', 'MORTGAGE30US', 'TOTALSL', 'TDSP']:
             for element in data['observations']:
                 parsed_data[element['date'] ] = element['value']
         print(parsed_data)
@@ -80,7 +80,7 @@ def load_historical_data():
     """
 
     api_call = CallFredAPI(get_api_key())
-    metrics = ['DRCCLACBS', 'CPIAUCSL', 'UNRATE', 'MORTGAGE30US', 'TOTALSL']
+    metrics = ['DRCCLACBS', 'CPIAUCSL', 'UNRATE', 'MORTGAGE30US', 'TOTALSL', 'TDSP']
     for metric in metrics:
         data = api_call.get_historical_data(metric)
         load_to_sql("consumer_lending_risk", data)
