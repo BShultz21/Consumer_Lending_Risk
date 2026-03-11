@@ -23,3 +23,24 @@ Economic indicators used:
 ## **Data Model**
 
 ![data_model.jpg](diagrams/data_model.jpg)
+
+
+## **Pipeline Workflow**
+
+1. API key is retrieved from config file
+2. Python script calls FRED API for each indicator
+3. The JSON response from FRED API is parsed and cleaned
+4. The parsed JSON is then arranged into a standardized schema
+5. Data is loaded to PostgreSQL tables and is available for analysis
+
+## **Technologies Used**
+- Python
+- PostgreSQL
+- FRED API
+- SQL
+- Git
+
+## **Data Pipeline Use Cases**
+- Analyze how rising unemployment correlates with increased credit card delinquency rates.
+- Investigate whether consumer borrowing increases during inflationary periods.
+- Evaluate how mortgage rate changes impact overall credit expansion.

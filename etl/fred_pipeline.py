@@ -53,10 +53,21 @@ class CallFredAPI:
         if self.series in ['DRCCLACBS', 'CPIAUCSL', 'UNRATE', 'MORTGAGE30US', 'TOTALSL', 'TDSP']:
             for element in data['observations']:
                 parsed_data[element['date'] ] = element['value']
-        print(parsed_data)
         return parsed_data
 
-def load_to_sql(table, data):
+def truncate_sql_table():
+    """
+    This truncates the consumer_lending_risk table
+    """
+    with psycopg.connect("user=postgres") as conn:
+        with conn.cursor() as cur:
+            cur.execute("TRUNCATE TABLE consumer_lending_risk")
+
+def load_sql_table(data):
+    """
+    This takes data of list datatype and loads to SQL.
+    First element in list must be economic indicator (series) and second element must be economic data of dict datatype
+    """
     with psycopg.connect("user=postgres") as conn:
         with conn.cursor() as cur:
             rows = []
@@ -67,24 +78,25 @@ def load_to_sql(table, data):
                 rows.append((date, value, indicator))
 
             cur.executemany(
-                f'INSERT INTO {table} (date, value, indicator_id) VALUES (%s, %s, %s)',
+                f'INSERT INTO consumer_lending_risk (date, value, indicator_id) VALUES (%s, %s, %s)',
                 rows
             )
 
-    print("Data has been loaded")
+    print(f"{data[0]} data has been loaded")
 
 
-def load_historical_data():
+def load_api_data():
     """
-    This calls the API to get historical data, parses the data, and then loads to SQL
+    Wrapper function to call API to get historical data, parses the data, and then truncates and loads to SQL
     """
-
     api_call = CallFredAPI(get_api_key())
     metrics = ['DRCCLACBS', 'CPIAUCSL', 'UNRATE', 'MORTGAGE30US', 'TOTALSL', 'TDSP']
+
+    truncate_sql_table()
     for metric in metrics:
         data = api_call.get_historical_data(metric)
-        load_to_sql("consumer_lending_risk", data)
+        load_sql_table(data)
 
 
 if __name__ == '__main__':
-    load_historical_data()
+    load_api_data()
