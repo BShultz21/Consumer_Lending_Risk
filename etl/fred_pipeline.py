@@ -1,21 +1,15 @@
 import requests
-import json
 import os
 import psycopg
+from dotenv import load_dotenv
 
 
 def get_api_key():
     """
     This retrieves the api key from the project directory needed for a particular API
     """
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(script_dir)
-    key_path = os.path.join(project_root, "config", "api_config.json")
-
-    with open(key_path) as f:
-        key = json.load(f)['key']
-
-    return key
+    load_dotenv("../config/.env")
+    return os.getenv('FRED_API_KEY')
 
 class CallFredAPI:
     def __init__(self, key):
@@ -44,6 +38,7 @@ class CallFredAPI:
             return data
         else:
             print(response.status_code)
+            return None
 
     def parse_json_data(self, data):
         """

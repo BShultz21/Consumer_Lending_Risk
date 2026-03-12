@@ -1,3 +1,5 @@
 .venv/
 .idea/
-config/api_config.json
+config/
+logs/
+docker/Dockerfile
