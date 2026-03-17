@@ -3,3 +3,6 @@
 config/
 logs/
 docker/Dockerfile
+etl/__pycache__/
+dags/__pycache__/
+docker/
