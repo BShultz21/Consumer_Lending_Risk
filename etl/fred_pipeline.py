@@ -23,7 +23,7 @@ class CallFredAPI:
     def set_url(self):
         self.url = f'https://api.stlouisfed.org/fred/series/observations?series_id={self.series}&observation_start=1991-01-01&api_key={self.key}&file_type=json'
 
-    def get_historical_data(self, series):
+    def call_api(self, series):
         """
         This gets the historical data for a specific economic series from the FRED website
         """
@@ -47,8 +47,16 @@ class CallFredAPI:
         parsed_data = {}
         if self.series in ['DRCCLACBS', 'CPIAUCSL', 'UNRATE', 'MORTGAGE30US', 'TOTALSL', 'TDSP']:
             for element in data['observations']:
-                parsed_data[element['date'] ] = element['value']
+                if element['value'] in ('', '.', 'N/A', None):
+                    parsed_data[element['date']] = None
+                else:
+                    parsed_data[element['date']] = element['value']
         return parsed_data
+
+    def get_data(self, metric):
+        self.get_api_key()
+        return self.call_api(metric)
+
 
 def truncate_sql_table():
     """
@@ -89,7 +97,7 @@ def load_api_data():
 
     truncate_sql_table()
     for metric in metrics:
-        data = api_call.get_historical_data(metric)
+        data = api_call.call_api(metric)
         load_sql_table(data)
 
 
