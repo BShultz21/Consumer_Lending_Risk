@@ -62,7 +62,7 @@ def truncate_sql_table():
     """
     This truncates the consumer_lending_risk table
     """
-    with psycopg.connect("user=postgres") as conn:
+    with psycopg.connect(host="postgres",dbname="postgres",user="airflow_user",password="airflow",port=5432) as conn:
         with conn.cursor() as cur:
             cur.execute("TRUNCATE TABLE consumer_lending_risk")
 
@@ -71,7 +71,7 @@ def load_sql_table(data):
     This takes data of list datatype and loads to SQL.
     First element in list must be economic indicator (series) and second element must be economic data of dict datatype
     """
-    with psycopg.connect("user=postgres") as conn:
+    with psycopg.connect(host="postgres",dbname="postgres",user="airflow_user",password="airflow",port=5432) as conn:
         with conn.cursor() as cur:
             rows = []
             indicator = data[0]
