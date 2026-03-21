@@ -6,7 +6,7 @@ from etl.fred_pipeline import load_api_data
 
 with DAG(
         dag_id="consumer_lending_risk",
-        start_date=datetime(2026, 3, 12),
+        start_date=datetime(2026, 3, 19),
         schedule="@weekly",
         catchup=False
 ):

@@ -27,7 +27,8 @@ Economic indicators used:
 
 ## **Pipeline Workflow**
 
-1. API key is retrieved from config file
+1. Airflow Dag is triggered once a week every Thursday at midnight
+2. API key is retrieved from config file
 2. Python script calls FRED API for each indicator
 3. The JSON response from FRED API is parsed and cleaned
 4. The parsed JSON is then arranged into a standardized schema
@@ -39,6 +40,8 @@ Economic indicators used:
 - FRED API
 - SQL
 - Git
+- Airflow
+- Docker
 
 ## **Data Pipeline Use Cases**
 - Analyze how rising unemployment correlates with increased credit card delinquency rates.
